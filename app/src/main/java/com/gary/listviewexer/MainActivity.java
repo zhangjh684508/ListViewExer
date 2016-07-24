@@ -6,10 +6,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gary.listviewexer.bean.Fruit;
 
@@ -42,6 +44,14 @@ public class MainActivity extends AppCompatActivity {
 
         mListView = (ListView)findViewById(R.id.activity_main_list_view);
         mListView.setAdapter(adapter);
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Fruit fruit=fruitList.get(position);
+                Toast.makeText(MainActivity.this, fruit.getmName(),Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
@@ -85,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
             if (convertView==null)
             {
+                viewHolder = new ViewHolder();
                 view= LayoutInflater.from(getContext()).inflate(resourceId,null);
                 viewHolder.fruitImage=(ImageView)view.findViewById(R.id.fruit_image);
                 viewHolder.fruitName=(TextView)view.findViewById(R.id.fruit_name);
